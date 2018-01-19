@@ -15,11 +15,17 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
     public class Lab2Controller : Controller
     {
 
-        /**
-        * 
-        * 
-        * 
-        * */
+        //  Aufgabe 1: XST(Cross-Site-Tracing) und Session Fixation 
+
+        //  Session Fixation
+        //  2. http://localhost:50374/Lab2/login?sid=944d3e630b06562f4ec842ecc7a9a43027240a73
+        //  3. Da die SessionID in der URL mitgegeben wird, kann beim Teilen dieser der empfänger zu ungunsten des Senders beliebig auf den Account zugreifen. beispiel: ich sende meinen coolen Blog beitrag dem Kollegen, der diesen dann zu meinen Ungunsten abändert da mein Account mit allen meinen Berechtigunen noch in der Session ist
+
+        //  XST(Cross-Site-Tracing)
+        //  2. http://localhost:50374/Lab2/Backend/doSomethingBad?deleteBlog
+        //  3. Mittels eines Links und einem Code dahinter, eine ungewünschte Aktion bei einer Webseite ausführen. Beispiel: Da mein Kollege weiss, das ich Abends viel auf meinem Blog schreibe, schickt er mir einen Link mit einem Bild, das eine Transaktion über meine Session ausführt.
+
+
 
         public ActionResult Index() {
 
@@ -37,6 +43,7 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login()
         {
             var username = Request["username"];
@@ -67,6 +74,7 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
             }
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult Backend()
         {
             var sessionid = "";
