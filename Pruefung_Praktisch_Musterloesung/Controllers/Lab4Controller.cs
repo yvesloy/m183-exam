@@ -5,6 +5,7 @@ using System.Web;
 using System.Security.Cryptography;
 using System.Text;
 using Pruefung_Praktisch_Musterloesung.Models;
+using System.Text.RegularExpressions;
 
 namespace Pruefung_Praktisch_Musterloesung.Controllers
 {
@@ -30,7 +31,11 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
             var password = Request["password"];
 
             bool intrusion_detected = false;
-        
+            //protect trought regex
+            if(!Regex.IsMatch(username, @"^[a-zA-Z'./s]{1,40}$"))
+            {
+
+            }
             // Hints
             // Request.Browser.Platform;
             // Request.UserHostAddress;
